@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMS BOMBER</title>
-  
+<title>SMS Bomber</title>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
   body {
     font-family: "Poppins", sans-serif;
-    background: linear-gradient(135deg, #ff5a5a, #ffb347, #ff6f91);
+    background: linear-gradient(135deg, #ff5a5a, #ffb347, #ff6f91, #6a11cb);
     background-size: 400% 400%;
-    animation: gradientFlow 12s ease infinite;
+    animation: gradientFlow 15s ease infinite;
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -32,27 +34,27 @@
   .float {
     position: absolute;
     border-radius: 50%;
-    filter: blur(20px);
-    opacity: 0.5;
-    animation: floaty 10s infinite ease-in-out;
+    filter: blur(25px);
+    opacity: 0.6;
+    animation: floaty 12s infinite ease-in-out;
     z-index: 0;
   }
   @keyframes floaty {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-50px); }
+    50% { transform: translateY(-60px); }
     100% { transform: translateY(0px); }
   }
-  .c1 { width: 150px; height: 150px; background:#fff; top: 10%; left: 5%; }
-  .c2 { width: 120px; height: 120px; background:#ffddcc; bottom: 15%; right: 10%; }
-  .c3 { width: 180px; height: 180px; background:#ccffff; bottom: 25%; left: 25%; }
+  .c1 { width: 160px; height: 160px; background:#fff; top: 10%; left: 5%; }
+  .c2 { width: 130px; height: 130px; background:#ffddcc; bottom: 15%; right: 10%; }
+  .c3 { width: 200px; height: 200px; background:#ccffff; bottom: 25%; left: 25%; }
 
   h1 {
-    font-size: 2.8em;
+    font-size: 3em;
     margin-bottom: 30px;
-    background: linear-gradient(90deg, #fff, #fffcaa);
+    background: linear-gradient(90deg, #fff, #fffcaa, #ffe0e0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0px 0px 25px rgba(255,255,255,0.9);
+    text-shadow: 0px 0px 30px rgba(255,255,255,0.9);
     display: flex;
     gap: 12px;
     align-items: center;
@@ -61,17 +63,17 @@
     flex-wrap: wrap;
     z-index: 1;
   }
-  h1 i { color: #ffeb3b; text-shadow: 0 0 15px #fff200; }
+  h1 i { color: #ffeb3b; text-shadow: 0 0 20px #fff200; }
 
   .container {
     width: 95%;
-    max-width: 480px;
-    padding: 35px 25px;
+    max-width: 500px;
+    padding: 40px 30px;
     border-radius: 30px;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(18px);
-    border: 2px solid rgba(255,255,255,0.3);
-    box-shadow: 0 0 35px rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 40px rgba(0,0,0,0.7);
     position: relative;
     z-index: 1;
   }
@@ -108,70 +110,124 @@
     font-size: 16px;
     background: rgba(255,255,255,0.2);
     color: #fff;
-    box-shadow: inset 0 0 12px rgba(255,255,255,0.3), 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 15px rgba(255,255,255,0.3), 0 6px 15px rgba(0,0,0,0.3);
     transition: 0.3s;
   }
-  input:focus { background: rgba(255,255,255,0.3); box-shadow: inset 0 0 15px rgba(255,255,255,0.5), 0 6px 20px rgba(0,0,0,0.4); }
+  input:focus { background: rgba(255,255,255,0.3); box-shadow: inset 0 0 18px rgba(255,255,255,0.5), 0 6px 20px rgba(0,0,0,0.4); }
 
   button {
     width: 100%;
     padding: 20px;
     margin-top: 25px;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     font-size: 18px;
     font-weight: bold;
     background: linear-gradient(145deg, #ff4e4e, #ff7070);
     color: #fff;
     cursor: pointer;
     transition: 0.3s;
-    box-shadow: 0 6px 18px rgba(255,0,0,0.6);
+    box-shadow: 0 6px 20px rgba(255,0,0,0.6);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
   }
   button:hover {
-    transform: scale(1.03) translateY(-2px);
+    transform: scale(1.04) translateY(-2px);
     box-shadow: 0 8px 25px rgba(255,0,0,0.8);
   }
   button i { font-size: 22px; }
 
+  .charging-btn {
+    position: relative;
+    overflow: hidden;
+    background: #111;
+    border: 2px solid #4cc9f0 !important;
+    box-shadow:
+      0 0 12px #4cc9f0,
+      0 0 20px #4895ef inset;
+    transform: scale(0.97);
+    animation: chargePulse 0.6s infinite alternate ease-in-out;
+  }
+
+  @keyframes chargePulse {
+    0% { box-shadow: 0 0 10px #4cc9f0, 0 0 6px #4895ef inset; }
+    100% { box-shadow: 0 0 16px #4cc9f0, 0 0 20px #4895ef inset; }
+  }
+
+  .charge-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .charge-bar {
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    border: 2px solid #48bfe3;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .charge-bar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #56cfe1, #64dfdf, #80ffdb);
+    animation: chargeFill 1.4s infinite linear;
+  }
+
+  @keyframes chargeFill {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  .charge-text {
+    color: #90e0ef;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 15px;
+    text-shadow: 0 0 8px #48bfe3;
+  }
+
   .console {
     margin-top: 25px;
-    background: rgba(0,0,0,0.85);
-    border-radius: 20px;
+    background: rgba(0,0,0,0.9);
+    border-radius: 25px;
     padding: 18px;
     height: 230px;
     overflow-y: auto;
     font-family: "Courier New", monospace;
     font-size: 14px;
     color: #fffa9d;
-    box-shadow: inset 0 0 15px rgba(255,255,255,0.2);
+    box-shadow: inset 0 0 20px rgba(255,255,255,0.2);
   }
   .log { color: #00ff9d; }
   .info { color: #ffd966; }
   .error { color: #ff6b6b; }
 
-  .loading {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    border-top-color: #ffffff;
-    animation: spin 1s infinite linear;
-    margin-right: 10px;
+  .progress-container {
+    width: 100%;
+    height: 18px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.15);
+    margin-top: 15px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
   }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ffeb3b, #ff7070);
+    border-radius: 12px;
+    transition: width 0.3s ease;
+  }
 
-  @media (max-width: 480px) {
-    h1 { font-size: 2.2em; }
-    .container { padding: 25px 15px; }
-    input { font-size: 15px; padding: 14px 14px 14px 45px; }
-    button { font-size: 16px; padding: 18px; }
-    .console { height: 200px; font-size: 13px; padding: 12px; }
-  }
 </style>
 </head>
 <body>
@@ -180,7 +236,7 @@
 <div class="float c2"></div>
 <div class="float c3"></div>
 
-<h1><i class="fa-solid fa-bomb"></i> SMS BOMBER <i class="fa-solid fa-bomb"></i></h1>
+<h1><i class="fa-solid fa-bomb"></i> SMS  <i class="fa-solid fa-bomb"></i></h1>
 
 <div class="container">
   <form id="apiForm">
@@ -200,6 +256,10 @@
       <i class="fa-solid fa-bomb"></i>
       <span id="btnText">Detonate</span>
     </button>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
   </form>
 
   <div class="console" id="consoleBox">
@@ -211,6 +271,7 @@
 const logBox = document.getElementById("consoleBox");
 const btn = document.getElementById("submitBtn");
 const btnText = document.getElementById("btnText");
+const progressBar = document.getElementById("progressBar");
 
 function log(msg, type="log") {
   const line = document.createElement("div");
@@ -222,6 +283,20 @@ function log(msg, type="log") {
 
 function clearConsole() {
   logBox.innerHTML = '<div class="info"><i class="fa-solid fa-circle-check"></i> Ready to Launch</div>';
+}
+
+function animateProgress(duration=3000) {
+  progressBar.style.width = "0%";
+  let start = null;
+
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    progressBar.style.width = (progress * 100) + "%";
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
 }
 
 document.getElementById("apiForm").addEventListener("submit", async (e) => {
@@ -236,14 +311,23 @@ document.getElementById("apiForm").addEventListener("submit", async (e) => {
   }
 
   btn.disabled = true;
-  btnText.innerHTML = '<div class="loading"></div>Detonating...';
+  btn.classList.add("charging-btn");
+  btnText.innerHTML = `
+    <div class="charge-wrapper">
+      <div class="charge-bar"></div>
+      <span class="charge-text">Bombing Attack...</span>
+    </div>
+  `;
+
   clearConsole();
   log("Preparing payload...", "info");
 
+  animateProgress(4000);
+
   const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-const apiUrl = proxyUrl + "https://sms-tanginamoka-api-ryujin.vercel.app/api/smsbomb" +
-                 "?number=" + encodeURIComponent(number) +
-                 "&amount=" + encodeURIComponent(amount);
+  const apiUrl = proxyUrl + "https://sms-tanginamoka-api-ryujin.vercel.app/api/smsbomb" +
+                   "?number=" + encodeURIComponent(number) +
+                   "&amount=" + encodeURIComponent(amount);
   
   setTimeout(async () => {
     log("Sending request to server...", "info");
@@ -257,7 +341,8 @@ const apiUrl = proxyUrl + "https://sms-tanginamoka-api-ryujin.vercel.app/api/sms
     }
     btn.disabled = false;
     btnText.textContent = "Detonate";
-  }, 1800);
+    progressBar.style.width = "0%";
+  }, 4200); 
 });
 </script>
 
