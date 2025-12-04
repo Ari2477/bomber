@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Launcher</title>
+
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #ff5a5a, #ffb347, #ff6f91);
+    background-size: 400% 400%;
+    animation: gradientFlow 12s ease infinite;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Decorative Floating Blobs */
+  .float {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.5;
+    animation: floaty 10s infinite ease-in-out;
+    z-index: 0;
+  }
+  @keyframes floaty {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-40px); }
+    100% { transform: translateY(0); }
+  }
+  .c1 { width: 150px; height:150px; background:#ffffff; top:10%; left:6%; }
+  .c2 { width: 120px; height:120px; background:#ffe0cc; bottom:10%; right:10%; }
+  .c3 { width: 180px; height:180px; background:#ccffff; bottom:25%; left:25%; }
+
+  /* Header */
+  h1 {
+    font-size: 2.7em;
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, #fff, #ffffc6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+  }
+  h1 i { color: #ffeb3b; }
+
+  /* Main Panel */
+  .container {
+    width: 95%;
+    max-width: 480px;
+    padding: 35px 25px;
+    border-radius: 30px;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255,255,255,0.25);
+    box-shadow: 0 0 35px rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 2;
+  }
+
+  label {
+    font-weight: 600;
+    margin-top: 18px;
+    display: block;
+    color: #fff;
+  }
+
+  .input-box {
+    position: relative;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 18px;
+  }
+
+  .input-box i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #ffe066;
+    font-size: 20px;
+  }
+
+  input {
+    width: 86%;
+    padding: 16px 15px 16px 50px;
+    border-radius: 18px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.22);
+    color: #fff;
+    font-size: 16px;
+    box-shadow: inset 0 0 12px rgba(255,255,255,0.25);
+    transition: 0.3s;
+  }
+
+  input:focus {
+    background: rgba(255,255,255,0.35);
+    box-shadow: inset 0 0 15px rgba(255,255,255,0.5);
+  }
+
+  /* BUTTON */
+  button {
+    width: 100%;
+    padding: 20px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background: linear-gradient(145deg, #ff4e4e, #ff7070);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(255,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: 0.25s ease;
+  }
+
+  button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(255,0,0,0.8);
+  }
+
+  .loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Console */
+  .console {
+    margin-top: 25px;
+    background: rgba(0,0,0,0.85);
+    border-radius: 20px;
+    padding: 18px;
+    height: 250px;
+    overflow-y: auto;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    color: #ffeea6;
+    box-shadow: inset 0 0 15px rgba(255,255,255,0.15);
+  }
+  .log { color: #9dffb0; }
+  .info { color: #ffec8b; }
+  .error { color: #ff6b6b; }
+
+</style>
+</head>
+<body>
+
+<div class="float c1"></div>
+<div class="float c2"></div>
+<div class="float c3"></div>
+
+<h1><i class="fa-solid fa-rocket"></i> API Launcher</h1>
+
+<div class="container">
+  <form id="apiForm">
+    
+    <label><i class="fa-solid fa-phone"></i> Phone Number:</label>
+    <div class="input-box">
+      <i class="fa-solid fa-mobile-screen"></i>
+      <input type="text" id="number" placeholder="Enter phone" required>
+    </div>
+
+    <label><i class="fa-solid fa-coins"></i> Amount:</label>
+    <div class="input-box">
+      <i class="fa-solid fa-hashtag"></i>
+      <input type="number" id="amount" placeholder="Enter amount" min="1" required>
+    </div>
+
+    <button type="submit" id="submitBtn">
+      <i class="fa-solid fa-paper-plane"></i>
+      <span id="btnText">Send</span>
+    </button>
+
+  </form>
+
+  <div class="console" id="consoleBox">
+    <div class="info"><i class="fa-solid fa-check-circle"></i> Ready</div>
+  </div>
+</div>
+
+<script>
+const logBox = document.getElementById("consoleBox");
+const btn = document.getElementById("submitBtn");
+const btnText = document.getElementById("btnText");
+
+function log(msg, type = "log") {
+  const line = document.createElement("div");
+  line.className = type;
+  line.innerHTML = "> " + msg;
+  logBox.appendChild(line);
+  logBox.scrollTop = logBox.scrollHeight;
+}
+
+function clearConsole() {
+  logBox.innerHTML = '<div class="info"><i class="fa-solid fa-check-circle"></i> Ready</div>';
+}
+
+document.getElementById("apiForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const number = document.getElementById("number").value.trim();
+  const amount = Number(document.getElementById("amount").value);
+
+  if (!number || amount < 1) {
+    log("Invalid input!", "error");
+    return;
+  }
+
+  // LOADING STATE ON
+  btn.disabled = true;
+  btnText.innerHTML = '<div class="loading-spinner"></div>';
+
+  clearConsole();
+  log("Preparing request...", "info");
+
+  // ---- EDIT THIS ----
+  const YOUR_API_URL = "YOUR_API_URL_HERE"; 
+  const apiUrl = `${YOUR_API_URL}?number=${encodeURIComponent(number)}&amount=${encodeURIComponent(amount)}`;
+  // -------------------
+
+  setTimeout(async () => {
+    log("Sending request...", "info");
+
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      log("Success!", "log");
+      log("Response: " + JSON.stringify(data), "info");
+    }
+    catch (err) {
+      log("Error: " + err.message, "error");
+    }
+
+    // LOADING STATE OFF
+    btn.disabled = false;
+    btnText.innerHTML = "Send";
+  }, 1000);
+
+});
+</script>
+
+</body>
+</html>
