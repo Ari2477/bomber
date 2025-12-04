@@ -352,9 +352,8 @@ document.getElementById("apiForm").addEventListener("submit", async (e) => {
 
   animateProgress(4000);
 
-  const baseUrl = "https://sms-tanginamoka-api-ryujin.vercel.app/api/smsbomb";
-  const apiUrl = `${baseUrl}?number=${encodeURIComponent(number)}&amount=${encodeURIComponent(amount)}`;
-
+  const baseUrl = "/api/smsbomb"; 
+  const apiUrl = baseUrl + "?number=" + encodeURIComponent(number) + "&amount=" + encodeURIComponent(amount);
   setTimeout(async () => {
     log("Sending request to server...", "info");
     try {
